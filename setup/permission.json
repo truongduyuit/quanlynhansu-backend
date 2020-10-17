@@ -1,0 +1,14 @@
+{
+    "data": [
+        {
+            "groupName": "Nhân viên",
+            "groupKey": "employee",
+            "permissions": [
+                {
+                    "key": "employeeCreate",
+                    "name": "Thêm nhân viên"
+                }
+            ]
+        }
+    ]
+}
