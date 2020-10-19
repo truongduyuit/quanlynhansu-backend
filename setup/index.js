@@ -60,7 +60,7 @@ async function setupAdminAccountAndPermission(){
             }
         )
         for (let j = 0; j < newData.permissions.length; j++) {
-                permissionKeys += `${newData.permissions[j].key} = "${newData.permissions[j].key}",\n`;
+                permissionKeys += `${newData.permissions[j].key} : "${newData.permissions[j].key}",\n`;
                 adminRole.rolePermissions.push({
                     permissionKey: newData.permissions[j].key,
                 });
@@ -83,11 +83,12 @@ async function setupAdminAccountAndPermission(){
             username: "admin",
         });
         if (!adminAccount) {
-            const hash = await bcrypt.hash("admin123", 10);
+            const hash = await bcrypt.hash("admin", 10);
             adminAccount = await mongoose.model("Account").create({
                 username: "admin",
                 password: hash,
-                role: role._id,
+                roleId: role._id,
+                isAdmin: true
             });
         } else {
             adminAccount.role = role._id;

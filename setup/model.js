@@ -76,6 +76,15 @@ const adminSchema = new mongoose.Schema(
     employeeId: {
       type: mongoose.SchemaTypes.ObjectId,
     },
+    status: {
+      type: String,
+      enum: ['normal', 'locked' ,'delete'],
+      default: 'normal'
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     collection: "Account",

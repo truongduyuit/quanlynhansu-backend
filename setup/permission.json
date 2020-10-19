@@ -1,12 +1,68 @@
 {
     "data": [
         {
+            "groupName": "Vai trò",
+            "groupKey": "role",
+            "permissions": [
+                {
+                    "key": "roleCreate",
+                    "name": "Thêm vai trò"
+                },
+                {
+                    "key": "roleGetList",
+                    "name": "Lấy danh sách vai trò"
+                },
+                {
+                    "key": "roleUpdate",
+                    "name": "Cập nhật vai trò"
+                },
+                {
+                    "key": "roleDelete",
+                    "name": "Xóa vai trò"
+                }
+            ]
+        },
+        {
+            "groupName": "Phòng ban",
+            "groupKey": "department",
+            "permissions": [
+                {
+                    "key": "departmentCreate",
+                    "name": "Thêm phòng ban"
+                },
+                {
+                    "key": "departmentGetList",
+                    "name": "Lấy danh sách phòng ban"
+                },
+                {
+                    "key": "departmentUpdate",
+                    "name": "Cập nhật phòng ban"
+                },
+                {
+                    "key": "departmentDelete",
+                    "name": "Xóa phòng ban"
+                }
+            ]
+        },
+        {
             "groupName": "Nhân viên",
             "groupKey": "employee",
             "permissions": [
                 {
                     "key": "employeeCreate",
                     "name": "Thêm nhân viên"
+                },
+                {
+                    "key": "employeeGetList",
+                    "name": "Lấy danh sách nhân viên"
+                },
+                {
+                    "key": "employeeUpdate",
+                    "name": "Cập nhật nhân viên"
+                },
+                {
+                    "key": "employeeDelete",
+                    "name": "Xóa nhân viên"
                 }
             ]
         }
