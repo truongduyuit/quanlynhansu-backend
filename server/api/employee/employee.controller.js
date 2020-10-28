@@ -1,20 +1,19 @@
 import ResponseService from "../../service/responseService";
 import { StatusCode } from "../../const/statusCodes";
-import roleService from "./role.service";
-import { RoleStatus } from "../../const";
+import { EmployeeStatus, RoleStatus } from "../../const";
+import employeeService from "./employee.service";
 
-class RoleController {
-    async CreateRole(req, res) {
+class EmployeeController {
+    async CreateEmployee(req, res) {
         try {
-            const { roleName, rolePermissions} = req.body
+            const employee = req.body
+            employee.status = undefined
 
-            const role = await roleService.create({
-                roleName, rolePermissions
-            })
+            const newEmployee = await employeeService.create(employee)
 
             return ResponseService.send(res, StatusCode.Ok, {
-                message: "create role success",
-                data: role
+                message: "create employee success",
+                data: newEmployee
             });
         } catch (error) {
             return ResponseService.send(res, StatusCode.ServerError, {
@@ -28,21 +27,23 @@ class RoleController {
         }
     }
 
-    async GetListRole(req, res) {
+    async GetListEmployee(req, res) {
         try {
             const {page, limit} = req.query
 
-            const roles = await roleService.getByQuery({status: RoleStatus.enable}, page, limit)
+            const employees = await employeeService.getByQuery({
+                page, limit
+            })
 
             return ResponseService.send(res, StatusCode.Ok, {
-                message: "get list role success",
-                data: roles
+                message: "get list employee success",
+                data: employees
             });
         } catch (error) {
             return ResponseService.send(res, StatusCode.ServerError, {
                 errors: [
                     {
-                        code: ErrorCodes.ServerError,
+                        code: StatusCode.ServerError,
                         error: error.message,
                     },
                 ],
@@ -50,24 +51,21 @@ class RoleController {
         }
     }
 
-    async GetRoleById(req, res) {
+    async GetEmployeeById(req, res) {
         try {
             const {id} = req.params
 
-            const role = await roleService.getOne({
-                _id: id,
-                status: RoleStatus.enable
-            })
+            const employee = await employeeService.getById(id)
 
             return ResponseService.send(res, StatusCode.Ok, {
-                message: "get role by id success",
-                data: role
+                message: "get info employee success",
+                data: employee
             });
         } catch (error) {
             return ResponseService.send(res, StatusCode.ServerError, {
                 errors: [
                     {
-                        code: ErrorCodes.ServerError,
+                        code: StatusCode.ServerError,
                         error: error.message,
                     },
                 ],
@@ -75,24 +73,22 @@ class RoleController {
         }
     }
 
-    async UpdateRole(req, res) {
+    async UpdateEmployee(req, res) {
         try {
-            const {id} = req.params
-            const { roleName, rolePermissions} = req.body
+            const {id} = req.body
+            const employee = req.body
 
-            const role = await roleService.updateById(id, {
-                roleName, rolePermissions
-            })
+            const newEmployee = await employeeService.updateById(id , employee)
 
             return ResponseService.send(res, StatusCode.Ok, {
-                message: "update role success",
-                data: role
+                message: "update employee success",
+                data: newEmployee
             });
         } catch (error) {
             return ResponseService.send(res, StatusCode.ServerError, {
                 errors: [
                     {
-                        code: ErrorCodes.ServerError,
+                        code: StatusCode.ServerError,
                         error: error.message,
                     },
                 ],
@@ -100,22 +96,22 @@ class RoleController {
         }
     }
 
-    async DeleteRole(req, res) {
+    async DeleteEmployee(req, res) {
         try {
-            const {id} = req.params
+            const {id} = req.body
 
-            await roleService.updateById(id, {
-                status: RoleStatus.disable
+            await employeeService.updateById(id , {
+                status: EmployeeStatus.delete
             })
 
             return ResponseService.send(res, StatusCode.Ok, {
-                message: "delete role success"
+                message: "delete employee success"
             });
         } catch (error) {
             return ResponseService.send(res, StatusCode.ServerError, {
                 errors: [
                     {
-                        code: ErrorCodes.ServerError,
+                        code: StatusCode.ServerError,
                         error: error.message,
                     },
                 ],
@@ -124,4 +120,4 @@ class RoleController {
     }
 }
 
-export default new RoleController()
+export default new EmployeeController()

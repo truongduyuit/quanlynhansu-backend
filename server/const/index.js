@@ -20,3 +20,9 @@ export const DepartmentStatus = {
     locked: "locked",
     delete: "delete"
 }
+
+export const EmployeeStatus = {
+    normal: "normal",
+    locked: "locked",
+    delete: "delete"
+}

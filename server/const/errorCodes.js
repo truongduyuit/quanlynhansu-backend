@@ -6,6 +6,8 @@ export const ErrorCodes = {
     // account
     AccountNotFound: "AccountNotFound",
     AccountUsernameOrPasswordIncorrect: "AccountUsernameOrPasswordIncorrect",
+    AccountUsernameIsExist: "AccountUsernameIsExist",
+    
 
     // role
     RoleNameIsExist: "RoleNameIsExist",
@@ -13,5 +15,10 @@ export const ErrorCodes = {
 
     // department
     DepartmentNameIsExit: "DepartmentNameIsExit",
-    DepartmentNotFound: "DepartmentNotFound"
+    DepartmentNotFound: "DepartmentNotFound",
+
+    // employee
+    EmployeeNotExist: "EmployeeNotExist",
+    EmployeePhoneIsExist: "EmployeePhoneIsExist",
+    EmployeeIdentityNumbersExist: "EmployeeIdentityNumbersExist",
 }

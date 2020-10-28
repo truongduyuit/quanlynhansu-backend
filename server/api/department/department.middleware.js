@@ -1,7 +1,7 @@
 import { AccountStatus, DepartmentStatus, RoleStatus } from '../../const'
 import { ErrorCodes } from '../../const/errorCodes'
 import { StatusCode } from '../../const/statusCodes'
-import ResponseService from '../../service/responeService'
+import ResponseService from '../../service/responseService'
 import departmentService from './department.service'
 class DepartmentController {
     async CreateDepartment(req, res, next) {

@@ -1,5 +1,3 @@
-import { string } from '@hapi/joi'
-import { extend } from 'joi'
 import mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
@@ -35,6 +33,13 @@ const schema = new mongoose.Schema({
 schema.virtual("roleInfo", {
   ref: "Role",
   localField: "roleId",
+  foreignField: "_id",
+  justOne: true,
+})
+
+schema.virtual("employeeInfo", {
+  ref: "Employee",
+  localField: "employeeId",
   foreignField: "_id",
   justOne: true,
 })

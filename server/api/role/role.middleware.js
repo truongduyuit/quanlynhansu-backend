@@ -1,7 +1,7 @@
 import { AccountStatus, RoleStatus } from '../../const'
 import { ErrorCodes } from '../../const/errorCodes'
 import { StatusCode } from '../../const/statusCodes'
-import ResponseService from '../../service/responeService'
+import ResponseService from '../../service/responseService'
 import roleService from './role.service'
 
 class RoleMiddleware {

@@ -1,0 +1,887 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Employee Management",
+        "description": "Employee Management Server",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "contact": {
+            "url": "https://www.facebook.com/truongduyuit/"
+        }
+    },
+    "host": "localhost:4444",
+    "basePath": "/api",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "adminAuthorization": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header"
+        },
+        "authorization": {
+            "type": "apiKey",
+            "name": "authorization",
+            "in": "header"
+        }
+    },
+    "tags": [
+        {
+            "name": "Department",
+            "description": "API quản lý phòng ban"
+        },
+        {
+            "name": "Permission",
+            "description": "API quản lý phân quyền"
+        },
+        {
+            "name": "Role",
+            "description": "API quản lí vai trò"
+        },
+        {
+            "name": "Employee",
+            "description": "API quản lý nhân viên"
+        },
+        {
+            "name": "Account",
+            "description": "API quản lý tài khoản"
+        }
+    ],
+    "definitions": {
+        "department": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "departments": {
+            "type": "array",
+            "items": {
+                "$ref": "#definitions/department"
+            }
+        },
+        "permission": {
+            "type": "object",
+            "properties": {
+                "groupName": {
+                    "type": "string"
+                },
+                "groupKey": {
+                    "type": "string"
+                },
+                "permissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "key": {
+                                "type": "string"
+                            },
+                            "dependOn": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "permissions": {
+            "type": "array",
+            "items": {
+                "$ref": "#definitions/permission"
+            }
+        },
+        "role": {
+            "type": "object",
+            "properties": {
+                "roleName": {
+                    "type": "string"
+                },
+                "rolePermissions": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "permissionKey": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "roles": {
+            "type": "array",
+            "items": {
+                "$ref": "#definitions/role"
+            }
+        },
+        "employee": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "nation": {
+                    "type": "string"
+                },
+                "identityNumber": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "homeTown": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "dateToWork": {
+                    "type": "string"
+                },
+                "dateOfContract": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                },
+                "departmentId": {
+                    "type": "string"
+                }
+            }
+        },
+        "employeeCreateDto": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "dateOfBirth": {
+                    "type": "string"
+                },
+                "nation": {
+                    "type": "string"
+                },
+                "identityNumber": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "homeTown": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "dateToWork": {
+                    "type": "string"
+                },
+                "dateOfContract": {
+                    "type": "string"
+                },
+                "departmentId": {
+                    "type": "string"
+                },
+                "note": {
+                    "type": "string"
+                }
+            }
+        },
+        "employees": {
+            "type": "array",
+            "items": {
+                "$ref": "#definitions/employee"
+            }
+        }
+    },
+    "paths": {
+        "/department": {
+            "post": {
+                "tags": [
+                    "Department"
+                ],
+                "summary": "API thêm phòng ban",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "create department success",
+                        "schema": {
+                            "$ref": "#definitions/department"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "Department"
+                ],
+                "summary": "API lấy danh sách phòng ban",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "page",
+                        "type": "number"
+                    },
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "limit",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get list department success",
+                        "schema": {
+                            "$ref": "#definitions/departments"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            }
+        },
+        "/department/{id}": {
+            "get": {
+                "tags": [
+                    "Department"
+                ],
+                "summary": "API thông tin phòng ban bằng id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get information department success",
+                        "schema": {
+                            "$ref": "#definitions/department"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Department"
+                ],
+                "summary": "API cập nhật thông tin phòng ban",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "update department success",
+                        "schema": {
+                            "$ref": "#definitions/department"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Department"
+                ],
+                "summary": "API xóa phòng ban",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete department success"
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            }
+        },
+        "/permission": {
+            "get": {
+                "tags": [
+                    "Permission"
+                ],
+                "summary": "API get list permission",
+                "responses": {
+                    "200": {
+                        "description": "get list permission success",
+                        "schema": {
+                            "$ref": "#definitions/permissions"
+                        }
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                }
+            }
+        },
+        "/role": {
+            "post": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "API thêm vai trò",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "roleName": {
+                                    "type": "string"
+                                },
+                                "rolePermissions": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "permissionKey": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "create role success",
+                        "schema": {
+                            "$ref": "#definitions/role"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "API lấy danh sách vai trò",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "page",
+                        "type": "number"
+                    },
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "limit",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get list role success",
+                        "schema": {
+                            "$ref": "#definitions/roles"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            }
+        },
+        "/role/{id}": {
+            "get": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "API lấy thông tin vai trò",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get role by id success",
+                        "schema": {
+                            "$ref": "#definitions/role"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "API cập nhật vai trò",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "roleName": {
+                                    "type": "string"
+                                },
+                                "rolePermissions": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "permissionKey": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "update role success",
+                        "schema": {
+                            "$ref": "#definitions/role"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Role"
+                ],
+                "summary": "API xóa vai trò",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete role success"
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            }
+        },
+        "/employee": {
+            "post": {
+                "tags": [
+                    "employee"
+                ],
+                "summary": "API thêm nhân viên",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#definitions/employeeCreateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "create employee success",
+                        "schema": {
+                            "$ref": "#definitions/employee"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "employee"
+                ],
+                "summary": "API lấy danh sách nhân viên",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "page",
+                        "type": "number"
+                    },
+                    {
+                        "in": "query",
+                        "required": false,
+                        "name": "limit",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get list employee success",
+                        "schema": {
+                            "$ref": "#definitions/employees"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            }
+        },
+        "/employee/{id}": {
+            "get": {
+                "tags": [
+                    "employee"
+                ],
+                "summary": "API thông tin nhân viên",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get info employee success",
+                        "schema": {
+                            "$ref": "#definitions/employee"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "employee"
+                ],
+                "summary": "API cập nhật thông tin nhân viên",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "required": true,
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#definitions/employeeCreateDto"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "update employee success",
+                        "schema": {
+                            "$ref": "#definitions/employee"
+                        }
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "employee"
+                ],
+                "summary": "API xóa nhân viên",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "required": true,
+                        "name": "id",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "delete employee success"
+                    },
+                    "401": {
+                        "description": "you are not authorize"
+                    },
+                    "500": {
+                        "description": "internal server error "
+                    }
+                },
+                "security": [
+                    {
+                        "adminAuthorization": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import { StatusCode } from "../../const/statusCodes";
 import jwt from "../../service/jwt";
-import ResponseService from "../../service/responeService";
+import ResponseService from "../../service/responseService";
 import roleService from '../role/role.service'
 
 class AccountController {

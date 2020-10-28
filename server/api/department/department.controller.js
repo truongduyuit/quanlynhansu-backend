@@ -1,4 +1,4 @@
-import ResponseService from "../../service/responeService";
+import ResponseService from "../../service/responseService";
 import { StatusCode } from "../../const/statusCodes";
 import departmentService from './department.service'
 import { DepartmentStatus } from "../../const";

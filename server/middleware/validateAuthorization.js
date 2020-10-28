@@ -2,7 +2,7 @@ import jsonWebToken from 'jsonwebtoken'
 import accountService from '../api/account/account.service'
 import { AccountStatus, RoleStatus } from '../const'
 import { StatusCode } from '../const/statusCodes'
-import ResponseService from '../service/responeService'
+import ResponseService from '../service/responseService'
 import ErrorCodes from '../const/errorCodes'
 import roleService from '../api/role/role.service'
 

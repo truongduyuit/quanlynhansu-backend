@@ -45,6 +45,28 @@
             ]
         },
         {
+            "groupName": "Tài khoản",
+            "groupKey": "account",
+            "permissions": [
+                {
+                    "key": "accountCreate",
+                    "name": "Thêm tài khoản"
+                },
+                {
+                    "key": "accountGetList",
+                    "name": "Lấy danh sách tài khoản"
+                },
+                {
+                    "key": "accountUpdate",
+                    "name": "Cập nhật tài khoản"
+                },
+                {
+                    "key": "accountDelete",
+                    "name": "Xóa tài khoản"
+                }
+            ]
+        },
+        {
             "groupName": "Nhân viên",
             "groupKey": "employee",
             "permissions": [
